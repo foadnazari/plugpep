@@ -14,7 +14,9 @@ PlugPEP is an advanced AI-driven workflow for designing protein binders based on
 *AI Researcher*
 [GitHub](https://github.com/SaraBa87) | [LinkedIn](https://www.linkedin.com/in/sara-baghalian)
 
+## Interactive Demo
 
+You can try out PlugPEP in our interactive Kaggle notebook: [PlugPEP v0.1.0-dev](https://www.kaggle.com/code/fn1985/plugpep-v-0-1-0-dev)
 
 ## Architecture Overview
 
