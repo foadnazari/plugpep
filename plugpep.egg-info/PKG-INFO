@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: plugpep
+Version: 0.1.0
+Summary: A protein binder design pipeline using LLM planning and structure prediction
+Home-page: https://github.com/foadnazari/plug-pep
+Author: Foad Nazari
+Author-email: foadnazari@gmail.com
+Description-Content-Type: text/markdown
+Requires-Dist: langchain>=0.1.5
+Requires-Dist: langchain-core>=0.1.5
+Requires-Dist: langchain-community>=0.0.10
+Requires-Dist: langchain-google-genai>=0.0.5
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: pytest>=7.0.0
+Requires-Dist: pytest-cov>=4.0.0
+Requires-Dist: pytest-mock>=3.10.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: summary
+
+A protein binder design pipeline using LLM planning and structure prediction

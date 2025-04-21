@@ -1,0 +1,7 @@
+{
+  "output_dir": "E:\\Foad_pLM\\plugpep\\test_output",
+  "log_dir": "E:\\Foad_pLM\\plugpep\\test_logs",
+  "max_retries": 3,
+  "timeout": 300,
+  "debug": true
+}
