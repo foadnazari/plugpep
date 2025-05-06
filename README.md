@@ -53,8 +53,7 @@ GOOGLE_API_KEY=your_api_key_here
 │   ├── agent.py              # Main agent implementation
 │   ├── alphafold_retrieve.py # AlphaFold file retrieval module
 │   └── extract_backbone.py   # Backbone extraction module
-├── alphafold_output/         # Directory for downloaded AlphaFold files
-├── backbone_output/          # Directory for generated backbone structures
+├── output/                   # Directory for outputs          
 ├── requirements.txt
 └── .env                      # Environment variables (not tracked in git)
 ```
@@ -63,7 +62,7 @@ GOOGLE_API_KEY=your_api_key_here
 
 1. Run the agent:
 ```bash
-adk run multi_tool_agent
+adk web
 ```
 
 2. Interact with the agent by providing protein names or descriptions. For example:
@@ -79,13 +78,9 @@ The agent will:
 
 ## Output Files
 
-- **AlphaFold Files**: Saved in `alphafold_output/`
-  - Full protein structure files in PDB format
-  - Additional metadata files
-
-- **Backbone Files**: Saved in `backbone_output/`
-  - Simplified backbone structures in PDB format
-  - Contains only the main chain atoms
+- Full protein structure files in PDB and cif formats
+- PAE score file
+- Backbone structures in PDB format
 
 ## Development
 
