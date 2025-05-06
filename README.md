@@ -1,133 +1,121 @@
-# PlugPEP: AI-Powered Protein Binder Design Workflow
+# Protein Structure Analysis Agent
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+This project implements an AI agent that helps identify UniProt IDs from protein names/information, retrieves AlphaFold structure files, and generates protein backbone structures.
 
-PlugPEP is an advanced AI-driven workflow for designing protein binders based on natural language queries. It leverages a sophisticated multi-stage AI agent architecture with Google's Gemini Pro model, AlphaFold database integration, and state-of-the-art prompt engineering techniques.
+## Features
 
-## Author
+- **UniProt ID Identification**: Automatically identifies UniProt IDs from protein names or descriptions
+- **AlphaFold Structure Retrieval**: Downloads protein structure files from the AlphaFold database
+- **Backbone Extraction**: Generates simplified backbone structures from full protein models
 
-**Foad Nazari**
-*AI Researcher*
-[GitHub](https://github.com/foadnazari) | [LinkedIn](https://www.linkedin.com/in/foadnazari/)
+## Prerequisites
 
-**Sara Baghalian**
-*AI Researcher*
-[GitHub](https://github.com/SaraBa87) | [LinkedIn](https://www.linkedin.com/in/sara-baghalian)
+- Python 3.9 or higher
+- Google Cloud account with access to Gemini API
+- Internet connection for AlphaFold database access
 
-## Interactive Demo
+## Installation
 
-You can try out PlugPEP in our interactive Kaggle notebook: [PlugPEP-dev](https://www.kaggle.com/code/fn1985/plugpep-dev)
-
-## Architecture Overview
-
-PlugPEP employs a multi-stage AI agent architecture that processes natural language queries through several specialized stages:
-
-1. **LLM Planning Agent**: Uses Google's Gemini Pro model with advanced prompt engineering to identify target proteins from natural language descriptions
-2. **Structure Retrieval Agent**: Interfaces with the AlphaFold database to retrieve high-quality protein structures
-3. **Backbone Extraction Agent**: Processes the retrieved structures to extract backbone information
-4. **Report Generation Agent**: Synthesizes all information into actionable recommendations
-
-## Advanced Features
-
-### AI Agent Architecture
-
-The workflow is built around a AI agent system that maintains state between stages using a structured JSON object (`AgentState`). This state object is continuously updated as the workflow progresses, ensuring information persistence and context awareness across all stages.
-
-
-
-### Prompt Engineering
-
-PlugPEP employs advanced prompt engineering techniques:
-
-- **Few-shot Learning**: The LLM is provided with carefully crafted examples to guide its responses
-- **Structured Output Parsing**: Responses are parsed into structured JSON objects for consistent processing
-- **Contextual Prompting**: Each stage receives context from previous stages to maintain coherence
-- **Domain-Specific Instructions**: Prompts include specialized knowledge about protein functions and structures
-
-### Functional Calling & API Integration
-
-The workflow uses functional calling to interface with external services:
-
-- **AlphaFold Database API**: Direct API calls to retrieve protein structures
-- **Google Gemini API**: Function calls to the LLM with structured parameters
-- **Bioinformatics Tools**: Integration with specialized tools for protein analysis
-
-## Workflow Diagram
-
-```mermaid
-graph TD
-    A[User Query] --> B[LLM Planning Agent]
-    B -->|AgentState| C[Structure Retrieval Agent]
-    C -->|AgentState| D[Backbone Extraction Agent]
-    D -->|AgentState| E[Report Generation Agent]
-    E -->|Final Report| F[User]
-
-    subgraph "AI Agent System"
-        B
-        C
-        D
-        E
-    end
-
-    subgraph "External Services"
-        G[Google Gemini Pro]
-        H[AlphaFold Database]
-        I[Bioinformatics Tools]
-    end
-
-    B -->|Function Call| G
-    C -->|API Call| H
-    D -->|Tool Integration| I
-
-    subgraph "State Management"
-        J[AgentState JSON]
-    end
-
-    B -->|Update| J
-    C -->|Update| J
-    D -->|Update| J
-    E -->|Update| J
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd <repository-name>
 ```
 
-## How It Works
+2. Create and activate a virtual environment:
+```bash
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
 
-1. **LLM Planning Stage**:
-   - User provides a natural language query
-   - LLM Planning Agent processes the query using advanced prompt engineering
-   - Agent identifies the target protein and its UniProt ID
-   - Results are stored in the AgentState
+# Linux/MacOS
+python -m venv .venv
+source .venv/bin/activate
+```
 
-2. **Structure Retrieval Stage**:
-   - Structure Retrieval Agent uses the UniProt ID from the AgentState
-   - Makes API calls to the AlphaFold database
-   - Retrieves PDB and CIF files for the target protein
-   - Updates the AgentState with structure information
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-3. **Backbone Extraction Stage**:
-   - Backbone Extraction Agent processes the retrieved structure
-   - Extracts backbone atoms using specialized tools
-   - Saves the extracted backbone to a PDB file
-   - Updates the AgentState with backbone information
+4. Set up environment variables:
+Create a `.env` file in the project root with your Google API key:
+```
+GOOGLE_API_KEY=your_api_key_here
+```
 
-4. **Report Generation Stage**:
-   - Report Generation Agent synthesizes all information in JSON format
-   - Creates a comprehensive report with recommendations
-   - Updates the AgentState with the final report
+## Project Structure
 
-## Example Queries
+```
+.
+├── multi_tool_agent/
+│   ├── __init__.py
+│   ├── agent.py              # Main agent implementation
+│   ├── alphafold_retrieve.py # AlphaFold file retrieval module
+│   └── extract_backbone.py   # Backbone extraction module
+├── alphafold_output/         # Directory for downloaded AlphaFold files
+├── backbone_output/          # Directory for generated backbone structures
+├── requirements.txt
+└── .env                      # Environment variables (not tracked in git)
+```
 
-- "Find a binder for the protein that converts prothrombin to thrombin in blood clotting"
-- "Find a binder for a protein that breaks down bacterial cell walls"
-- "Find a binder for a protein involved in blood clotting"
-- "Find a binder for a protein that regulates blood sugar levels"
+## Usage
 
+1. Run the agent:
+```bash
+adk run multi_tool_agent
+```
 
+2. Interact with the agent by providing protein names or descriptions. For example:
+```
+> What is the UniProt ID for human insulin?
+```
 
-## Conclusion
+The agent will:
+1. Identify the UniProt ID
+2. Download the corresponding AlphaFold structure
+3. Generate the backbone structure
+4. Save the files in their respective output directories
 
-PlugPEP demonstrates the power of combining advanced AI agents, state management, and API integration to create a sophisticated workflow for protein binder design. The multi-stage architecture, advanced prompt engineering, and functional calling capabilities make it a powerful tool for protein research and design.
+## Output Files
+
+- **AlphaFold Files**: Saved in `alphafold_output/`
+  - Full protein structure files in PDB format
+  - Additional metadata files
+
+- **Backbone Files**: Saved in `backbone_output/`
+  - Simplified backbone structures in PDB format
+  - Contains only the main chain atoms
+
+## Development
+
+### Adding New Features
+
+1. Create new tool functions in the appropriate module
+2. Add the function to the `tools` list in `agent.py`
+3. Update the agent's instruction to include the new capability
+
+### Testing
+
+To test the agent:
+1. Ensure all dependencies are installed
+2. Set up your API key in `.env`
+3. Run the agent and test with various protein queries
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+[Add your license information here]
 
+## Acknowledgments
+
+- Google ADK for the agent framework
+- AlphaFold team for the protein structure database
+- UniProt for protein information 
